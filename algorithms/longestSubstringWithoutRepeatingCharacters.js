@@ -29,4 +29,29 @@ function getLongestSubstring(s) {
     return max.length
 }
 
+
+// Solution 2: Best
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var getLongestSubstring = function(s) {
+    let map = Array(256).fill(-1),
+        head = 0,
+        len = 0
+
+    for(let i = 0;i < s.length; i++) {
+        let at = s[i].charCodeAt()
+        let map_at = map[at]
+        if ( map_at !== -1 ) {
+            head = map_at > head ? map_at : head
+        }
+        let tm_len = i - head + 1
+        len = len > tm_len ? len : tm_len
+        map[at] = i + 1
+    }
+
+    return len
+}
+
 console.log(getLongestSubstring('dvdf'))
